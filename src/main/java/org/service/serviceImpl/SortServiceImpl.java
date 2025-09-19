@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SortServiceImpl implements SortService {
 
-	NoteRepository noteRepository;
+	private final NoteRepository noteRepository;
 
 	public SortServiceImpl(NoteRepository noteRepository) {
 		this.noteRepository = noteRepository;

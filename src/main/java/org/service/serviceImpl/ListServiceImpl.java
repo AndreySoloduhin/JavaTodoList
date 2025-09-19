@@ -7,7 +7,8 @@ import org.service.ListService;
 import java.util.List;
 
 public class ListServiceImpl implements ListService {
-	NoteRepository noteRepository;
+
+	private final NoteRepository noteRepository;
 
 	public ListServiceImpl(NoteRepository noteRepository) {
 		this.noteRepository = noteRepository;

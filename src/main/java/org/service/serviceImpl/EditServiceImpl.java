@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 public class EditServiceImpl implements EditService {
 
-	NoteRepository noteRepository;
+	private final NoteRepository noteRepository;
 
 	public EditServiceImpl(NoteRepository noteRepository) {
 		this.noteRepository = noteRepository;

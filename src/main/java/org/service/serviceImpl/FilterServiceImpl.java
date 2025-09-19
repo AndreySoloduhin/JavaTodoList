@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FilterServiceImpl implements FilterService {
 
-	NoteRepository noteRepository;
+	private final NoteRepository noteRepository;
 
 	public FilterServiceImpl(NoteRepository noteRepository) {
 		this.noteRepository = noteRepository;
