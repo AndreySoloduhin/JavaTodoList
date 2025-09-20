@@ -1,5 +1,8 @@
 package org.repository;
 
+import org.enums.Status;
+import org.models.Note;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

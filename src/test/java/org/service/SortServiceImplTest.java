@@ -6,10 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.repository.Note;
+import org.models.Note;
 import org.repository.NoteRepository;
-import org.repository.Status;
-import org.service.serviceImpl.SortServiceImpl;
+import org.enums.Status;
+import org.service.serviceImpl.NoteServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 public class SortServiceImplTest {
 
 	@InjectMocks
-	private SortServiceImpl sortService;
+	private NoteServiceImpl noteService;
 
 	@Mock
 	private NoteRepository noteRepository;
@@ -44,7 +44,7 @@ public class SortServiceImplTest {
 
 	@Test
 	void testSortByIdAscending() {
-		List<Note> sorted = sortService.sortNotes(SORT_NOTE_ID, SORT_NOTE_FOR_ASC);
+		List<Note> sorted = noteService.sortNotes(SORT_NOTE_ID, SORT_NOTE_FOR_ASC);
 
 		assertEquals(List.of(1L, 2L),
 				sorted.stream().map(Note::getId).toList());
@@ -52,7 +52,7 @@ public class SortServiceImplTest {
 
 	@Test
 	void testSortByIdDescending() {
-		List<Note> sorted = sortService.sortNotes(SORT_NOTE_ID, SORT_NOTE_FOR_DESC);
+		List<Note> sorted = noteService.sortNotes(SORT_NOTE_ID, SORT_NOTE_FOR_DESC);
 
 		assertEquals(List.of(2L, 1L),
 				sorted.stream().map(Note::getId).toList());
@@ -60,7 +60,7 @@ public class SortServiceImplTest {
 
 	@Test
 	void testSortByNameAscending() {
-		List<Note> sorted = sortService.sortNotes(SORT_NOTE_NAME, SORT_NOTE_FOR_ASC);
+		List<Note> sorted = noteService.sortNotes(SORT_NOTE_NAME, SORT_NOTE_FOR_ASC);
 
 		assertEquals(List.of("A-task", "B-task"),
 				sorted.stream().map(Note::getName).toList());
@@ -68,7 +68,7 @@ public class SortServiceImplTest {
 
 	@Test
 	void testSortByNameDescending() {
-		List<Note> sorted = sortService.sortNotes(SORT_NOTE_NAME, SORT_NOTE_FOR_DESC);
+		List<Note> sorted = noteService.sortNotes(SORT_NOTE_NAME, SORT_NOTE_FOR_DESC);
 
 		assertEquals(List.of("B-task", "A-task"),
 				sorted.stream().map(Note::getName).toList());
@@ -76,7 +76,7 @@ public class SortServiceImplTest {
 
 	@Test
 	void testSortByDateAscending() {
-		List<Note> sorted = sortService.sortNotes(SORT_NOTE_DATE, SORT_NOTE_FOR_ASC);
+		List<Note> sorted = noteService.sortNotes(SORT_NOTE_DATE, SORT_NOTE_FOR_ASC);
 
 		assertEquals(List.of(LocalDate.of(2002,6,5), LocalDate.now()),
 				sorted.stream().map(Note::getDate).toList());
@@ -84,7 +84,7 @@ public class SortServiceImplTest {
 
 	@Test
 	void testSortByDateDescending() {
-		List<Note> sorted = sortService.sortNotes(SORT_NOTE_DATE, SORT_NOTE_FOR_DESC);
+		List<Note> sorted = noteService.sortNotes(SORT_NOTE_DATE, SORT_NOTE_FOR_DESC);
 
 		assertEquals(List.of(LocalDate.now(), LocalDate.of(2002,6,5)),
 				sorted.stream().map(Note::getDate).toList());

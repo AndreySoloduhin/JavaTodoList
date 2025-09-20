@@ -1,8 +1,8 @@
 package org.controller;
 
-import org.repository.Note;
+import org.models.Note;
 import org.repository.NoteRepository;
-import org.repository.Status;
+import org.enums.Status;
 import org.service.*;
 
 import java.time.LocalDate;
@@ -14,22 +14,11 @@ import java.util.Scanner;
 public class NoteController {
 
 	private final NoteRepository noteRepository;
-	private final AddService addService;
-	private final ListService listService;
-	private final DeleteService deleteService;
-	private final EditService editService;
-	private final FilterService filterService;
-	private final SortService sortService;
+	private final NoteService noteService;
 
-	public NoteController(NoteRepository noteRepository, AddService addService, ListService listService, DeleteService deleteService, EditService editService,
-						  FilterService filterService, SortService sortService) {
+	public NoteController(NoteRepository noteRepository, NoteService noteService ) {
 		this.noteRepository = noteRepository;
-		this.addService = addService;
-		this.listService = listService;
-		this.deleteService = deleteService;
-		this.editService = editService;
-		this.filterService = filterService;
-		this.sortService = sortService;
+		this.noteService = noteService;
 	}
 
 	Scanner scanner = new Scanner(System.in);
@@ -71,10 +60,10 @@ public class NoteController {
 							.status(status)
 							.build();
 
-					addService.addNote(note);
+					noteService.addNote(note);
 					break;
 				case "list":
-					List<Note> notes = listService.getAllNotes();
+					List<Note> notes = noteService.getAllNotes();
 					if (notes.isEmpty()) {
 						System.out.println("Задач пока нет.");
 					} else {
@@ -105,7 +94,7 @@ public class NoteController {
 					System.out.println("Введите новое значения: ");
 					String newValue = scanner.nextLine();
 
-					editService.editNote(note, field, newValue);
+					noteService.editNote(note, field, newValue);
 					System.out.println("Задача обновлена: " + note);
 					break;
 				case "filter":
@@ -114,7 +103,7 @@ public class NoteController {
 
 					try {
 						Status statusFilter = Status.valueOf(statusInput);
-						List<Note> filteredNotes = filterService.filterNotes(statusFilter);
+						List<Note> filteredNotes = noteService.filterNotes(statusFilter);
 
 						if (filteredNotes.isEmpty()) {
 							System.out.println("Нет заметок со статусом " + statusFilter);
@@ -134,14 +123,14 @@ public class NoteController {
 
 					boolean ascending = order.equalsIgnoreCase("asc");
 
-					List<Note> sortedNotes = sortService.sortNotes(statusForSort, ascending);
+					List<Note> sortedNotes = noteService.sortNotes(statusForSort, ascending);
 
 					sortedNotes.forEach(System.out::println);
 					break;
 				case "delete":
 					System.out.println("Введите id заметки для удаления: ");
 					id = Long.parseLong(scanner.nextLine());
-					deleteService.deleteNote(id);
+					noteService.deleteNote(id);
 					break;
 				case "exit":
 					running = false;

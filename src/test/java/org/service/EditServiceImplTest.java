@@ -6,19 +6,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.repository.Note;
+import org.models.Note;
 import org.repository.NoteRepository;
-import org.service.serviceImpl.EditServiceImpl;
+import org.service.serviceImpl.NoteServiceImpl;
 
 import java.time.LocalDate;
 
-import static org.repository.Status.*;
+import static org.enums.Status.*;
 
 @ExtendWith(MockitoExtension.class)
 public class EditServiceImplTest {
 
 	@InjectMocks
-	private EditServiceImpl editService;
+	private NoteServiceImpl noteService;
 
 	@Mock
 	private NoteRepository noteRepository;
@@ -34,7 +34,7 @@ public class EditServiceImplTest {
 
 		final String NEW_TEST_NAME = "editName";
 
-		editService.editNote(note, EDIT_NOTE_NAME, NEW_TEST_NAME);
+		noteService.editNote(note, EDIT_NOTE_NAME, NEW_TEST_NAME);
 
 		Assertions.assertEquals(NEW_TEST_NAME, note.getName());
 	}
@@ -45,7 +45,7 @@ public class EditServiceImplTest {
 
 		final String NEW_TEST_CONTENT = "editContent";
 
-		editService.editNote(note, EDIT_NOTE_CONTENT, NEW_TEST_CONTENT);
+		noteService.editNote(note, EDIT_NOTE_CONTENT, NEW_TEST_CONTENT);
 
 		Assertions.assertEquals(NEW_TEST_CONTENT, note.getContent());
 	}
@@ -56,7 +56,7 @@ public class EditServiceImplTest {
 
 		final String NEW_TEST_DATE = "2013-10-10";
 
-		editService.editNote(note, EDIT_NOTE_DATE, NEW_TEST_DATE);
+		noteService.editNote(note, EDIT_NOTE_DATE, NEW_TEST_DATE);
 
 		Assertions.assertEquals(LocalDate.parse(NEW_TEST_DATE), note.getDate());
 	}
@@ -67,7 +67,7 @@ public class EditServiceImplTest {
 
 		final String NEW_TEST_STATUS = "done";
 
-		editService.editNote(note, EDIT_NOTE_STATUS, NEW_TEST_STATUS);
+		noteService.editNote(note, EDIT_NOTE_STATUS, NEW_TEST_STATUS);
 
 		Assertions.assertEquals(DONE, note.getStatus());
 	}
@@ -79,7 +79,7 @@ public class EditServiceImplTest {
 		final String NEW_TEST_INCORRECT_DATE = "06-09-2005";
 
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> {editService.editNote(note, EDIT_NOTE_DATE, NEW_TEST_INCORRECT_DATE);});
+				() -> {noteService.editNote(note, EDIT_NOTE_DATE, NEW_TEST_INCORRECT_DATE);});
 	}
 
 	@Test
@@ -89,7 +89,7 @@ public class EditServiceImplTest {
 		final String NEW_TEST_INCORRECT_STATUS = "ready";
 
 		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> {editService.editNote(note, EDIT_NOTE_DATE, NEW_TEST_INCORRECT_STATUS);});
+				() -> {noteService.editNote(note, EDIT_NOTE_DATE, NEW_TEST_INCORRECT_STATUS);});
 	}
 
 	@Test
@@ -99,6 +99,6 @@ public class EditServiceImplTest {
 		final String DATE = "06-09-2005";
 		final int INCORRECT_ITEM_NOTE = 5;
 
-		Assertions.assertThrows(IllegalArgumentException.class, () -> {editService.editNote(note, INCORRECT_ITEM_NOTE, DATE);});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {noteService.editNote(note, INCORRECT_ITEM_NOTE, DATE);});
 	}
 }

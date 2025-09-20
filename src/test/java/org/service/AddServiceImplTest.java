@@ -5,21 +5,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.repository.Note;
+import org.models.Note;
 import org.repository.NoteRepository;
-import org.service.serviceImpl.AddServiceImpl;
+import org.service.serviceImpl.NoteServiceImpl;
 
 import java.time.LocalDate;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.repository.Status.TODO;
+import static org.enums.Status.TODO;
 
 @ExtendWith(MockitoExtension.class)
 public class AddServiceImplTest {
 
 	@InjectMocks
-	AddServiceImpl addService;
+	NoteServiceImpl noteService;
 
 	@Mock
 	NoteRepository noteRepository;
@@ -28,7 +28,7 @@ public class AddServiceImplTest {
 	void testAddNote() {
 		Note note = new Note(1L, "name1", "text1", LocalDate.of(2002, 06, 05), TODO);
 
-		addService.addNote(note);
+		noteService.addNote(note);
 		verify(noteRepository, times(1)).save(note);
 	}
 }

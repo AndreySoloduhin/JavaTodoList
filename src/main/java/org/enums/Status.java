@@ -1,4 +1,4 @@
-package org.repository;
+package org.enums;
 
 public enum Status {
 	TODO,

@@ -1,9 +1,10 @@
-package org.repository;
+package org.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.enums.Status;
 
 import java.time.LocalDate;
 

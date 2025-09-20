@@ -7,16 +7,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.repository.NoteRepository;
-import org.repository.Status;
-import org.service.serviceImpl.FilterServiceImpl;
+import org.enums.Status;
+import org.service.serviceImpl.NoteServiceImpl;
 
-import static org.repository.Status.TODO;
+import static org.enums.Status.TODO;
 
 @ExtendWith(MockitoExtension.class)
 public class FilterServiceImplTest {
 
 	@InjectMocks
-	private FilterServiceImpl filterService;
+	private NoteServiceImpl noteService;
 
 	@Mock
 	NoteRepository noteRepository;
@@ -25,7 +25,7 @@ public class FilterServiceImplTest {
 	void testFilterNotesByStatus(){
 		Status status = TODO;
 
-		filterService.filterNotes(status);
+		noteService.filterNotes(status);
 
 		Mockito.verify(noteRepository, Mockito.times(1)).findByStatus(status);
 	}
